@@ -16,26 +16,21 @@ public static class Counter
 
     public static Task<List<object>> CountDownUntilBleachCameOut()
     {
-        object objectAmz = new
-        {
-            title = "Sortie de Bleach",
-            description = "Il ne reste que "+ CounterUntilCameOut() + " jours avant la sortie de Bleach" ,
-            color = int.Parse(ColorRed2, System.Globalization.NumberStyles.HexNumber),
-        };
+        GetEmbedObject(new DateTime(2022, 10, 01), "la sortie de Bleach", ColorRed2, "Sortie de Bleach");   
+        GetEmbedObject(new DateTime(2022, 10, 01), "Noël !!", ColorGreen2, "Noël");   
 
-        Objects.Add(objectAmz);
         return Task.FromResult(Objects);
     }
 
-    private static int CounterUntilCameOut()
+    private static void GetEmbedObject(DateTime dateUntil, string sujet, string color, string title)
     {
-        var dateTime = DateTime.Today;
-        Console.WriteLine(dateTime);
-        var dateTimeUntil = new DateTime(2022, 10, 01);
-        Console.WriteLine(dateTimeUntil);
+        object obj = new
+        {
+            title = title,
+            description = "Il ne reste que "+ (dateUntil - DateTime.Today).Days + " jours avant " + sujet ,
+            color = int.Parse(color, System.Globalization.NumberStyles.HexNumber),
+        };
 
-        var getDaysUntil = (dateTimeUntil - dateTime).Days;
-        Console.WriteLine(getDaysUntil);
-        return getDaysUntil;
+        Objects.Add(obj);
     }
 }
